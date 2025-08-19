@@ -6,9 +6,7 @@ using UnityEngine;
 public class ResourcesRepository : BaseRepository<ResourcesDef>
 {
     
-#if UNITY_EDITOR
-public List<ResourcesDef> ItemsForEditor => GetAll();
-#endif
+
 }
 
 [Serializable]

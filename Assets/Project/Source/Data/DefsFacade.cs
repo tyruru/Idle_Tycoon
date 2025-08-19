@@ -4,12 +4,14 @@ using UnityEngine;
 public class DefsFacade : ScriptableObject
 {
     [SerializeField] private ResourcesRepository _resourcesRepository;
+    [SerializeField] private BuildingRepository _buildingRepository;
     
     private static DefsFacade _instance;
     
     public static DefsFacade I => _instance == null ? LoadDefs() : _instance;
     
     public ResourcesRepository ResourcesRepository => _resourcesRepository;
+    public BuildingRepository BuildingRepository => _buildingRepository;
     
     private static DefsFacade LoadDefs()
     {

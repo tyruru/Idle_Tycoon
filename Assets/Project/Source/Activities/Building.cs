@@ -8,6 +8,7 @@ public class Building : MonoBehaviour
     
     private Color _defaultMaterialColor;
     public Vector2Int Size => _size;
+    public string Id;
 
     private void Awake()
     {
