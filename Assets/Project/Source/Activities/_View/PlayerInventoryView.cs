@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class PlayerInventoryView : MonoBehaviour
 {
-    [SerializeField] private PlayerInventory _playerInventory;
+    [SerializeField] private PlayerInventoryPresenter _playerInventory;
+    
     private void Start()
     {
         _playerInventory = GameSession.I.PlayerInventory;

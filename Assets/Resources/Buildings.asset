@@ -27,5 +27,3 @@ MonoBehaviour:
     <Price>k__BackingField:
     - <Id>k__BackingField: _coin
       <Amount>k__BackingField: 1
-    - <Id>k__BackingField: _wood
-      <Amount>k__BackingField: 2

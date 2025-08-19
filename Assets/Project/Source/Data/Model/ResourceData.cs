@@ -5,6 +5,7 @@ using UnityEngine;
 public class ResourceData
 {
     [SerializeField] private string _id; 
+    [SerializeField] private string _name;
     [SerializeField] private string _iconPath;
     [SerializeField] private int _amount;
 
@@ -13,15 +14,12 @@ public class ResourceData
     public string Id
     {
         get => _id;
-        set
-        {
-            if (string.IsNullOrEmpty(value))
-            {
-                Debug.LogError("Resource Id cannot be null or empty.");
-                return;
-            }
-            _id = value;
-        }
+        private set => _id = value;
+    }
+    public string Name
+    {
+        get => _name;
+        private set => _name = value;
     }
     public Sprite Icon
     {

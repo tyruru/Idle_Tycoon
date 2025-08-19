@@ -1,30 +1,20 @@
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
-public class BuildingGrid : MonoBehaviour
+public class BuildingGridView : MonoBehaviour
 {
     [SerializeField] private Vector2Int _gridSize = new Vector2Int(10, 10);
-    private readonly List<Building> _placedBuildings = new List<Building>();
     
-    private Building[,] _grid;
     private Building _flyingBuilding;
+    private Building[,] _grid;
     private Camera _mainCamera;
-    
     private bool _available = true;
-
-    private BuildingRepository _buildingRepository;
-
-    private string _id;
+    
+    public event Action<Building> OnBuildingPlaced;
     private void Awake()
     {
         _grid = new Building[_gridSize.x, _gridSize.y]; 
         _mainCamera = Camera.main;
-    }
-
-    private void Start()
-    {
-        _buildingRepository = DefsFacade.I.BuildingRepository;
-        LoadBuildings(_buildingRepository);
     }
 
     private void Update()
@@ -52,10 +42,24 @@ public class BuildingGrid : MonoBehaviour
             
             if (_available && Input.GetMouseButtonDown(0))
             {
+                if (!BuyBuildingManager.BuyBuilding(_flyingBuilding)) 
+                    return;
+                
                 PlaceBuilding(x, y);
+                Debug.Log("Building placed at: " + x + ", " + y);
             }
             
         }
+    }
+    
+    public void StartPlacingBuilding(Building buildingPrefab)
+    {
+        if (_flyingBuilding != null)
+        {
+            Destroy(_flyingBuilding.gameObject);
+        }
+        
+        _flyingBuilding = Instantiate(buildingPrefab);
     }
 
     private bool IsPlaceTaken(int placeX, int placeY)
@@ -72,7 +76,7 @@ public class BuildingGrid : MonoBehaviour
         return false;
     }
     
-    private void PlaceBuilding(int placeX, int placeY)
+    public void PlaceBuilding(int placeX, int placeY)
     {
         for (int x = 0; x < _flyingBuilding.Size.x; x++)
         {
@@ -83,62 +87,8 @@ public class BuildingGrid : MonoBehaviour
         }
         
         _flyingBuilding.SetNormal();
-        _placedBuildings.Add(_flyingBuilding);  
-        SaveBuildings();       
+        OnBuildingPlaced?.Invoke(_flyingBuilding);       
         _flyingBuilding = null;
-    }
-    
-    private void SaveBuildings()
-    {
-        var data = new BuildingsSaveData();
-
-        foreach (var building in _placedBuildings)
-        {
-            var bData = new BuildingData
-            {
-                Id = building.Id,  
-                Position = building.transform.position,
-                Size = building.Size
-            };
-            data.Buildings.Add(bData);
-        }
-
-        JsonBuildingGridSaver.Save(data);
-    }
-
-    private void LoadBuildings(BuildingRepository repository)
-    {
-        var data = JsonBuildingGridSaver.Load();
-
-        foreach (var bData in data.Buildings)
-        {
-            // ищем def по id
-            var def = repository.GetById(bData.Id);
-            if (def == null)
-            {
-                Debug.LogWarning($"BuildingDef not found: {bData.Id}");
-                continue;
-            }
-
-            var prefab = DefsFacade.I.BuildingRepository.GetById(bData.Id).Prefab;
-            if (prefab == null)
-            {
-                Debug.LogWarning($"Prefab not found at path: {def.Prefab}");
-                continue;
-            }
-
-            var building = Instantiate(prefab, bData.Position, Quaternion.identity);
-            _placedBuildings.Add(building);
-
-            // отмечаем клетки в гриде
-            for (int x = 0; x < building.Size.x; x++)
-            {
-                for (int y = 0; y < building.Size.y; y++)
-                {
-                    _grid[(int)bData.Position.x + x, (int)bData.Position.z + y] = building;
-                }
-            }
-        }
     }
 
     private bool IsAvailable(int x, int y)
@@ -153,25 +103,13 @@ public class BuildingGrid : MonoBehaviour
         return true;
     }
 
-    public void StartPlacingBuilding(string id)
-    {
-        if (_flyingBuilding != null)
-        {
-            Destroy(_flyingBuilding.gameObject);
-        }
-
-        var buildingPrefab = DefsFacade.I.BuildingRepository.GetById(id)?.Prefab;
-        buildingPrefab.Id = id;
-        _flyingBuilding = Instantiate(buildingPrefab);
-    }
-
     private void OnDrawGizmos()
     {
         if (_gridSize.x <= 0 || _gridSize.y <= 0)
             return;
 
         Vector3 origin = transform.position;
-        
+
         Gizmos.color = Color.red;
         Vector3 cellSize = new Vector3(1, 0.01f, 1);
 
@@ -184,5 +122,19 @@ public class BuildingGrid : MonoBehaviour
                 Gizmos.DrawWireCube(cellCorner, cellSize);
             }
         }
+    }
+
+    public Building Create(Building building, Vector3 bDataPosition, Quaternion identity)
+    {
+        var instance =  Instantiate(building, bDataPosition, identity);
+        for (int x = 0; x < building.Size.x; x++)
+        {
+            for (int y = 0; y < building.Size.y; y++)
+            {
+                _grid[(int)bDataPosition.x + x, (int)bDataPosition.z + y] = building;
+            }
+        }
+
+        return instance;
     }
 }

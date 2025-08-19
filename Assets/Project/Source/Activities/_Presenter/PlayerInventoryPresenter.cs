@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class PlayerInventory
+public class PlayerInventoryPresenter
 {
     [SerializeField] private List<ResourceData> _resources;
 
-    public PlayerInventory()
+    public List<ResourceData> Resources => _resources;
+
+    public event Action OnChanged;
+
+    public PlayerInventoryPresenter()
     {
         _resources = new List<ResourceData>();
     }
@@ -31,6 +35,8 @@ public class PlayerInventory
             _resources.Add(newResourceData);
             GameSession.I.NotifyInventoryChanged();
         }
+        
+        OnChanged?.Invoke();
     }
     
     public bool TryRemoveResource(string resourceId, int amount = 1)
@@ -47,10 +53,13 @@ public class PlayerInventory
         }
 
         var isRemoving = resourceData.TryRemoveAmount(amount);
-        
-        if(isRemoving)
+
+        if (isRemoving)
+        {
+            OnChanged?.Invoke();
             GameSession.I.NotifyInventoryChanged();
-        
+        }
+
         return isRemoving;
     }
 
@@ -67,7 +76,7 @@ public class PlayerInventory
         return true;
     }
     
-    private ResourceData FindResourceInInventory(string resourceId)
+    public ResourceData FindResourceInInventory(string resourceId)
     {
         foreach (var resourceData in _resources)
         {

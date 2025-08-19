@@ -7,9 +7,11 @@ public class GameSession : MonoBehaviour
     [SerializeField] private float _autoSaveInterval = 30f;
 
     public static GameSession I { get; private set; }
-    public PlayerInventory PlayerInventory { get; private set; }
+    public PlayerInventoryPresenter PlayerInventory { get; private set; }
+    
+    public BuildingGridPresenter BuildingGridPresenter { get; set; }
 
-    public event Action<PlayerInventory> OnInventoryChanged;
+    public event Action<PlayerInventoryPresenter> OnInventoryChanged;
     
     private bool _needsSave;
     
