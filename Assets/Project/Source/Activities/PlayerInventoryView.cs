@@ -3,9 +3,9 @@ using UnityEngine;
 public class PlayerInventoryView : MonoBehaviour
 {
     [SerializeField] private PlayerInventory _playerInventory;
-    private void Awake()
+    private void Start()
     {
-        _playerInventory = new PlayerInventory();
+        _playerInventory = GameSession.I.PlayerInventory;
     }
     
     public void AddResource(string id)

@@ -4,10 +4,12 @@ using UnityEngine;
 [Serializable]
 public class ResourceData
 {
-    [SerializeField] private string _id;  
-    [SerializeField] private Sprite _icon;
+    [SerializeField] private string _id; 
+    [SerializeField] private string _iconPath;
     [SerializeField] private int _amount;
 
+    private Sprite _icon;
+    
     public string Id
     {
         get => _id;
@@ -15,7 +17,7 @@ public class ResourceData
         {
             if (string.IsNullOrEmpty(value))
             {
-                Debug.LogError("Resource ID cannot be null or empty.");
+                Debug.LogError("Resource Id cannot be null or empty.");
                 return;
             }
             _id = value;
@@ -23,24 +25,30 @@ public class ResourceData
     }
     public Sprite Icon
     {
-        get => _icon;
-        set
+        get
         {
-            if (value == null)
+            if (_icon == null && !string.IsNullOrEmpty(_iconPath))
             {
-                Debug.LogError("Resource icon cannot be null.");
-                return;
+                _icon = Resources.Load<Sprite>(_iconPath);
+                if (_icon == null)
+                    Debug.LogError($"Sprite not found at path: {_iconPath}");
             }
-            _icon = value;
+            return _icon;
         }
     }
 
+    public string IconPath
+    {
+        get => _iconPath;
+        set => _iconPath = value;
+    }
+    
     public int Amount => _amount;
     
-    public ResourceData(string id, Sprite icon, int amount)
+    public ResourceData(string id, string iconPath, int amount)
     {
         Id = id;
-        Icon = icon;
+        _iconPath = iconPath;
         _amount = amount > 0 ? amount : throw new ArgumentException("Amount must be greater than zero.");
     }
     

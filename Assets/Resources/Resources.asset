@@ -16,9 +16,12 @@ MonoBehaviour:
   - <Id>k__BackingField: _coin
     <Icon>k__BackingField: {fileID: 21300000, guid: 53831ffd2c1064d07b3fcc10982b1e0d,
       type: 3}
+    <IconPath>k__BackingField: Icons/_coin
   - <Id>k__BackingField: _wood
     <Icon>k__BackingField: {fileID: 21300000, guid: e0eac6b76fdd842e88a7f8c75ecffaf4,
       type: 3}
+    <IconPath>k__BackingField: Icons/_wood
   - <Id>k__BackingField: _gem
     <Icon>k__BackingField: {fileID: 21300000, guid: f59401c5c79564fd1ae3bfb0876455a7,
       type: 3}
+    <IconPath>k__BackingField: Icons/_gem

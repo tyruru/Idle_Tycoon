@@ -22,12 +22,14 @@ public class PlayerInventory
         if (resourceData != null)
         {
             resourceData.AddAmount(amount);
+            GameSession.I.NotifyInventoryChanged();
         }
         else
         {
             var resourceDef = DefsFacade.I.ResourcesRepository.GetById(resourceId);
-            var newResourceData = new ResourceData(resourceDef.Id, resourceDef.Icon, amount);
+            var newResourceData = new ResourceData(resourceDef.Id, resourceDef.IconPath, amount);
             _resources.Add(newResourceData);
+            GameSession.I.NotifyInventoryChanged();
         }
     }
     
@@ -43,8 +45,13 @@ public class PlayerInventory
             Debug.LogError($"Cannot remove resource {resourceId} because it doesn't exist in inventory");
             return false;
         }
+
+        var isRemoving = resourceData.TryRemoveAmount(amount);
         
-        return(resourceData.TryRemoveAmount(amount));
+        if(isRemoving)
+            GameSession.I.NotifyInventoryChanged();
+        
+        return isRemoving;
     }
 
     private bool IsResourceExists(string resourceId)
