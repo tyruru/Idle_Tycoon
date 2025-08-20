@@ -44,21 +44,14 @@ MonoBehaviour:
     - <Level>k__BackingField: 1
       <ProducePerTime>k__BackingField:
       - <Id>k__BackingField: _coin
-        <Amount>k__BackingField: 1
+        <Amount>k__BackingField: 5
       - <Id>k__BackingField: _wood
-        <Amount>k__BackingField: 1
-      <SecondsForProduce>k__BackingField: 2
+        <Amount>k__BackingField: 6
+      <SecondsForProduce>k__BackingField: 8
     - <Level>k__BackingField: 2
       <ProducePerTime>k__BackingField:
       - <Id>k__BackingField: _coin
-        <Amount>k__BackingField: 2
+        <Amount>k__BackingField: 10
       - <Id>k__BackingField: _wood
-        <Amount>k__BackingField: 2
-      <SecondsForProduce>k__BackingField: 2
-    - <Level>k__BackingField: 3
-      <ProducePerTime>k__BackingField:
-      - <Id>k__BackingField: 
-        <Amount>k__BackingField: 0
-      - <Id>k__BackingField: 
-        <Amount>k__BackingField: 0
-      <SecondsForProduce>k__BackingField: 2
+        <Amount>k__BackingField: 12
+      <SecondsForProduce>k__BackingField: 4

@@ -26,9 +26,8 @@ public class BuildingsMediator
         switch (action)
         {
             case "Produce":
-                sender.Execute();
+                CollectResources(sender);
                 break;
-
             case "Upgrade":
                 TryUpgrade(sender);
                 break;
@@ -49,5 +48,20 @@ public class BuildingsMediator
         var nextStats = def.Stats[currentLevel];
         
         building.SetStats(nextStats, currentLevel+1);
+    }
+    
+    private void CollectResources(IBuilding building)
+    {
+        Debug.Log($"Mediator collecting resources from {building}");
+        
+        var resources = building.ProducePerTime;
+        
+        foreach (var resource in resources)
+        {
+            var inventory = GameSession.I.PlayerInventory;
+            inventory.AddResource(resource.Id, resource.Amount);
+        }
+        
+        building.OnResourcesCollected();
     }
 }

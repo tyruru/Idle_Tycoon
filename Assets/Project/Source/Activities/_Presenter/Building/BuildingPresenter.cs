@@ -12,10 +12,10 @@ public class BuildingPresenter : IBuilding
     public string Id => _buildingModel.Id;
     public int CurrentLevel => _buildingModel.CurerntLevel;
 
-    public void OnReadyToCollect()
-    {
-    }
+    public List<ProducePerTimeDef> ProducePerTime => _buildingModel.Stats.ProducePerTime;
 
+    private bool _canCollect = false;
+    
     public void SetStats(BuildingStats nextStats, int currentLevel)
     {
         _buildingModel.Stats = nextStats;
@@ -23,26 +23,37 @@ public class BuildingPresenter : IBuilding
         _view.StartTimer(_buildingModel.Stats.SecondsForProduce);
     }
 
+    public void OnResourcesCollected()
+    {
+        _view.HideWidgets();
+        _view.StartTimer(_buildingModel.Stats.SecondsForProduce);
+        _canCollect = false;
+    }
+
     public void Initialize(BuildingView view)
     {
         _view = view;
         _view.OnTimerEnd += TimerEnd;
+        _view.OnTryToCollect += Produce;
         GameSession.I.BuildingsMediator.Register(this);
+    }
+    
+    public void Dispose()
+    {
+        _view.OnTimerEnd -= TimerEnd;
+        _view.OnTryToCollect -= Produce;
+        GameSession.I.BuildingsMediator.Unregister(this);
     }
     
     public void SetMediator(BuildingsMediator mediator)
     {
         _mediator = mediator;
     }
-    
-    public void Execute()
-    {
-        Debug.Log($"executed action!");
-    }
 
     public void Produce()
     {
-        _mediator.Notify(this, "Produce");
+        if(_canCollect)
+            _mediator.Notify(this, "Produce");
     }
 
     public void Upgrade()
@@ -54,12 +65,6 @@ public class BuildingPresenter : IBuilding
     {
         _buildingModel = model;
         _view.StartTimer(_buildingModel.Stats.SecondsForProduce);
-    }
-
-    public void Dispose()
-    {
-        _view.OnTimerEnd -= TimerEnd;
-        GameSession.I.BuildingsMediator.Unregister(this);
     }
     
     private void TimerEnd()
@@ -78,6 +83,7 @@ public class BuildingPresenter : IBuilding
             });
         }
         
+        _canCollect = true;
         _view.ShowCollectWidget(resources);
     }
 

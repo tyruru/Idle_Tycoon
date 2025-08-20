@@ -37,6 +37,10 @@ public class GameSession : MonoBehaviour
     public void SaveSession()
     {
         JsonPlayerInventorySaver.Save(PlayerInventory);
+        JsonBuildingGridSaver.Save(new BuildingsSaveData()
+        {
+            Buildings = BuildingGridPresenter.PlacedBuildings,
+        });
         Debug.Log("Session saved.");
     }
 

@@ -4,8 +4,9 @@ using UnityEngine;
 public class BuildingGridPresenter
 {
     private readonly BuildingGridView _view;
-    private readonly List<BuildingModel> _placedBuildings = new List<BuildingModel>();
     private readonly BuildingRepository _buildingRepository;
+    
+    public readonly List<BuildingModel> PlacedBuildings = new List<BuildingModel>();
     
     public BuildingGridPresenter(BuildingGridView gridView)
     {
@@ -37,32 +38,21 @@ public class BuildingGridPresenter
             position: buildingView.transform.position,
             size: buildingView.Size,
             price: def.Price,
-            stats: def.Stats[def.CurrentLevel],
+            stats: def.Stats[def.CurrentLevel-1],
             currentLevel: def.CurrentLevel
         );
         
-        _placedBuildings.Add(model);
+        PlacedBuildings.Add(model);
         buildingView.SetModel(model);
         SaveBuildings();
     }
     
     private void SaveBuildings()
     {
-        var data = new BuildingsSaveData();
-
-        foreach (var building in _placedBuildings)
+        var data = new BuildingsSaveData
         {
-            var bData = new BuildingModel(
-                id: building.Id,
-                position: building.Position,
-                size: building.Size,
-                price: building.Price,
-                stats: building.Stats, 
-                currentLevel: building.CurerntLevel
-            );
-            
-            data.Buildings.Add(bData);
-        }
+            Buildings = PlacedBuildings
+        };
 
         JsonBuildingGridSaver.Save(data);
     }
@@ -83,7 +73,7 @@ public class BuildingGridPresenter
             var instance = _view.Create(view, model.Position, Quaternion.Euler(0, 180, 0));
             instance.SetModel(model);
             
-            _placedBuildings.Add(model);
+            PlacedBuildings.Add(model);
         }
     }
 }

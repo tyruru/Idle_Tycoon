@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Project.Source.Activities.Component.Tweens;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BuildingView : MonoBehaviour
 {
@@ -10,25 +12,31 @@ public class BuildingView : MonoBehaviour
     [SerializeField] private Renderer _renderer;
     [SerializeField] private CollectResourcesWidget _prefabWidget;
     [SerializeField] private Transform _widgetsRoot;
-
-
+    [SerializeField] private Color _highlightColor = Color.yellow;
     [SerializeField] private BuildingModel _buildingModel; //fore Debugging
+    [SerializeField] private Image _progressBar;
     
     private Color _defaultMaterialColor;
     private BuildingPresenter _buildingPresenter;
     private Coroutine _timerCoroutine;
     private readonly List<CollectResourcesWidget> _activeWidgets = new List<CollectResourcesWidget>();
     
+    private SelectBuildingTween _selectBuildingTween;
+    private Color _defaultColor;
+    
     public Vector2Int Size => _size;
     public string Id;
     
     public event Action OnTimerEnd;
+    public event Action OnTryToCollect;
     
     private void Awake()
     {
         _defaultMaterialColor = _renderer.material.color;
         _buildingPresenter = new BuildingPresenter();
         _buildingPresenter.Initialize(this);
+        _selectBuildingTween = GetComponent<SelectBuildingTween>();
+        _defaultColor = _renderer.material.color;
     }
 
     private void OnDestroy()
@@ -38,6 +46,7 @@ public class BuildingView : MonoBehaviour
 
     public void StartTimer(float duration)
     {
+        
         if (_timerCoroutine != null)
             StopCoroutine(_timerCoroutine);
 
@@ -96,10 +105,24 @@ public class BuildingView : MonoBehaviour
     
     private IEnumerator TimerRoutine(float duration)
     {
-        yield return new WaitForSeconds(duration);
+        _progressBar.enabled = true;
+        float elapsed = 0f;
+        _progressBar.fillAmount = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            _progressBar.fillAmount = Mathf.Clamp01(elapsed / duration);
+            yield return null;
+        }
+
+        _progressBar.fillAmount = 1f;
+
         Debug.Log("Timer ended for building: " + _buildingModel.Id);
+        
         OnTimerEnd?.Invoke();
         _timerCoroutine = null; 
+        _progressBar.enabled = false;
     }
     
     private void ArrangeWidgets()
@@ -122,6 +145,18 @@ public class BuildingView : MonoBehaviour
             }
         }
     }
-
-   
+    
+    public void BuildingSelected()
+    {
+        Debug.Log($"{name} selected");
+        _renderer.material.color = _highlightColor;
+        OnTryToCollect?.Invoke();
+        _selectBuildingTween.PlaySelectTween();
+    }
+    
+    public void BuildingUnSelected()
+    {
+        Debug.Log($"{name} Un Selected");
+        _renderer.material.color = _defaultColor;
+    }
 }
