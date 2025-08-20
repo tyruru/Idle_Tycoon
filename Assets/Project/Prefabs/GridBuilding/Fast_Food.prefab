@@ -48,6 +48,7 @@ MonoBehaviour:
   _size: {x: 2, y: 1}
   _debugColor: {r: 1, g: 0.02, b: 0.97, a: 0.3}
   _renderer: {fileID: 4839825741075981043}
+  Id: _fast_food
 --- !u!1001 &4839825741074086547
 PrefabInstance:
   m_ObjectHideFlags: 0

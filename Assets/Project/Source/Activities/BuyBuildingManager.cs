@@ -3,12 +3,12 @@ using UnityEngine;
 
 public class BuyBuildingManager
 {
-    public static bool BuyBuilding(Building building)
+    public static bool BuyBuilding(BuildingView buildingView)
     {
-        var buildingDef = DefsFacade.I.BuildingRepository.GetById(building.Id);
+        var buildingDef = DefsFacade.I.BuildingRepository.GetById(buildingView.Id);
         if (buildingDef == null)
         {
-            Debug.LogError($"Building with id {building.Id} not found.");
+            Debug.LogError($"Building with id {buildingView.Id} not found.");
             return false;
         }
         
@@ -16,7 +16,7 @@ public class BuyBuildingManager
         
         if(!IsEnoughResources(priceList))
         {
-            Debug.LogError($"Not enough resources to buy building {building.Id}.");
+            Debug.LogError($"Not enough resources to buy building {buildingView.Id}.");
             return false;
         }
 

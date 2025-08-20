@@ -4,22 +4,24 @@ using UnityEngine;
 public class BuildingGridView : MonoBehaviour
 {
     [SerializeField] private Vector2Int _gridSize = new Vector2Int(10, 10);
+    [SerializeField] private Transform _buildingsRoot;
     
-    private Building _flyingBuilding;
-    private Building[,] _grid;
+    private BuildingView _flyingBuildingView;
+    private BuildingView[,] _grid;
     private Camera _mainCamera;
     private bool _available = true;
     
-    public event Action<Building> OnBuildingPlaced;
+    public string Id { get; private set; }
+    public event Action<BuildingView> OnBuildingPlaced;
     private void Awake()
     {
-        _grid = new Building[_gridSize.x, _gridSize.y]; 
+        _grid = new BuildingView[_gridSize.x, _gridSize.y]; 
         _mainCamera = Camera.main;
     }
 
     private void Update()
     {
-        if(!_flyingBuilding)
+        if(!_flyingBuildingView)
             return;
         
         var groundPlane = new Plane(Vector3.up, transform.position);
@@ -37,12 +39,18 @@ public class BuildingGridView : MonoBehaviour
                 _available = false;
             
             
-            _flyingBuilding.transform.position = new Vector3(x, 0, y);
-            _flyingBuilding.SetTransparent(_available);
-            
-            if (_available && Input.GetMouseButtonDown(0))
+            _flyingBuildingView.transform.position = new Vector3(x, 0, y);
+            _flyingBuildingView.SetTransparent(_available);
+
+            if (InputService.I.Actions.Building.Cancel.WasPressedThisFrame())
             {
-                if (!BuyBuildingManager.BuyBuilding(_flyingBuilding)) 
+                if (_flyingBuildingView)
+                    Destroy(_flyingBuildingView.gameObject);
+            }
+            
+            if (_available && InputService.I.Actions.Building.Approve.WasPressedThisFrame())
+            {
+                if (!BuyBuildingManager.BuyBuilding(_flyingBuildingView)) 
                     return;
                 
                 PlaceBuilding(x, y);
@@ -52,21 +60,21 @@ public class BuildingGridView : MonoBehaviour
         }
     }
     
-    public void StartPlacingBuilding(Building buildingPrefab)
+    public void StartPlacingBuilding(BuildingView buildingViewPrefab)
     {
-        if (_flyingBuilding != null)
+        if (_flyingBuildingView != null)
         {
-            Destroy(_flyingBuilding.gameObject);
+            Destroy(_flyingBuildingView.gameObject);
         }
-        
-        _flyingBuilding = Instantiate(buildingPrefab);
+        Id = buildingViewPrefab.Id;
+        _flyingBuildingView = Instantiate(buildingViewPrefab, _buildingsRoot);
     }
 
     private bool IsPlaceTaken(int placeX, int placeY)
     {
-        for (int x = 0; x < _flyingBuilding.Size.x; x++)
+        for (int x = 0; x < _flyingBuildingView.Size.x; x++)
         {
-            for (int y = 0; y < _flyingBuilding.Size.y; y++)
+            for (int y = 0; y < _flyingBuildingView.Size.y; y++)
             {
                 if(_grid[placeX + x, placeY + y])
                     return true;
@@ -78,26 +86,34 @@ public class BuildingGridView : MonoBehaviour
     
     public void PlaceBuilding(int placeX, int placeY)
     {
-        for (int x = 0; x < _flyingBuilding.Size.x; x++)
+        try
         {
-            for (int y = 0; y < _flyingBuilding.Size.y; y++)
+            for (int x = 0; x < _flyingBuildingView.Size.x; x++)
             {
-                _grid[placeX + x, placeY + y] = _flyingBuilding;
+                for (int y = 0; y < _flyingBuildingView.Size.y; y++)
+                {
+                    _grid[placeX + x, placeY + y] = _flyingBuildingView;
+                }
             }
-        }
         
-        _flyingBuilding.SetNormal();
-        OnBuildingPlaced?.Invoke(_flyingBuilding);       
-        _flyingBuilding = null;
+            _flyingBuildingView.SetNormal();
+            OnBuildingPlaced?.Invoke(_flyingBuildingView);       
+            _flyingBuildingView = null;
+        }
+        catch (Exception e)
+        {
+            Debug.LogWarning("Building put of range");
+        }
+       
     }
 
     private bool IsAvailable(int x, int y)
     {
-        Debug.Log("X: " + x + ", Y: " + y);
+        Debug.Log("Is available X: " + x + ",Is available Y: " + y);
 
-        if (x < transform.position.x || x > transform.position.x + _gridSize.x - _flyingBuilding.Size.x)
+        if (x < 0 || x >  _gridSize.x - _flyingBuildingView.Size.x)
             return false;
-        if (y < transform.position.y || y > transform.position.y + _gridSize.y - _flyingBuilding.Size.y)
+        if (y < 0 || y >  _gridSize.y - _flyingBuildingView.Size.y)
             return false;
 
         return true;
@@ -124,14 +140,14 @@ public class BuildingGridView : MonoBehaviour
         }
     }
 
-    public Building Create(Building building, Vector3 bDataPosition, Quaternion identity)
+    public BuildingView Create(BuildingView buildingView, Vector3 bDataPosition, Quaternion identity)
     {
-        var instance =  Instantiate(building, bDataPosition, identity);
-        for (int x = 0; x < building.Size.x; x++)
+        var instance =  Instantiate(buildingView, bDataPosition, identity, _buildingsRoot);
+        for (int x = 0; x < buildingView.Size.x; x++)
         {
-            for (int y = 0; y < building.Size.y; y++)
+            for (int y = 0; y < buildingView.Size.y; y++)
             {
-                _grid[(int)bDataPosition.x + x, (int)bDataPosition.z + y] = building;
+                _grid[(int)bDataPosition.x + x, (int)bDataPosition.z + y] = buildingView;
             }
         }
 

@@ -1,11 +1,10 @@
-
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BuildingGridPresenter
 {
     private readonly BuildingGridView _view;
-    private readonly List<Building> _placedBuildings = new List<Building>();
+    private readonly List<BuildingModel> _placedBuildings = new List<BuildingModel>();
     private readonly BuildingRepository _buildingRepository;
     
     public BuildingGridPresenter(BuildingGridView gridView)
@@ -30,9 +29,19 @@ public class BuildingGridPresenter
         _view.StartPlacingBuilding(buildingPrefab);
     }
 
-    private void OnBuildingPlaced(Building building)
+    private void OnBuildingPlaced(BuildingView buildingView)
     {
-        _placedBuildings.Add(building);
+        var def = _buildingRepository.GetById(buildingView.Id);
+        var model = new BuildingModel(
+            id: def.Id,
+            position: buildingView.transform.position,
+            size: buildingView.Size,
+            price: def.Price,
+            settings: def.Settings
+        );
+        
+        _placedBuildings.Add(model);
+        buildingView.SetModel(model);
         SaveBuildings();
     }
     
@@ -42,12 +51,14 @@ public class BuildingGridPresenter
 
         foreach (var building in _placedBuildings)
         {
-            var bData = new BuildingData
-            {
-                Id = building.Id,
-                Position = building.transform.position,
-                Size = building.Size
-            };
+            var bData = new BuildingModel(
+                id: building.Id,
+                position: building.Position,
+                size: building.Size,
+                price: building.Price,
+                settings: building.Settings
+            );
+            
             data.Buildings.Add(bData);
         }
 
@@ -58,26 +69,19 @@ public class BuildingGridPresenter
     {
         var data = JsonBuildingGridSaver.Load();
 
-        foreach (var bData in data.Buildings)
+        foreach (var model in data.Buildings)
         {
-            // ищем def по id
-            var def = _buildingRepository.GetById(bData.Id);
-            if (def == null)
+            if (model == null || string.IsNullOrEmpty(model.Id))
             {
-                Debug.LogWarning($"BuildingDef not found: {bData.Id}");
+                Debug.LogWarning("Invalid building model found in save data.");
                 continue;
             }
+            var view = DefsFacade.I.BuildingRepository.GetById(model.Id).Prefab;
 
-            var prefab = DefsFacade.I.BuildingRepository.GetById(bData.Id).Prefab;
-            if (prefab == null)
-            {
-                Debug.LogWarning($"Prefab not found at path: {def.Prefab}");
-                continue;
-            }
-
-            var building = _view.Create(prefab, bData.Position, Quaternion.identity);
+            var instance = _view.Create(view, model.Position, Quaternion.identity);
+            instance.SetModel(model);
             
-            _placedBuildings.Add(building);
+            _placedBuildings.Add(model);
         }
     }
 }

@@ -1,19 +1,26 @@
+using System;
 using UnityEngine;
 
-public class Building : MonoBehaviour
+public class BuildingView : MonoBehaviour
 {
     [SerializeField] private Vector2Int _size = Vector2Int.one;
     [SerializeField] private Color _debugColor = new Color(1f, 0.02f, 0.97f, 0.3f);
     [SerializeField] private Renderer _renderer;
     
+    [SerializeField] private BuildingModel _buildingModel; //fore Debugging
+    
     private Color _defaultMaterialColor;
+    private BuildingPresenter _buildingPresenter;
     public Vector2Int Size => _size;
     public string Id;
 
     private void Awake()
     {
         _defaultMaterialColor = _renderer.material.color;
+        _buildingPresenter = new BuildingPresenter();
+        _buildingPresenter.Initialize(this);
     }
+    
 
     public void SetTransparent(bool available)
     {
@@ -35,5 +42,11 @@ public class Building : MonoBehaviour
                 Gizmos.DrawCube(transform.position + new Vector3(x, 0, y), new Vector3(1, .1f, 1));
             }
         }
+    }
+
+    public void SetModel(BuildingModel model)
+    {
+        _buildingModel = model;
+        _buildingPresenter.SetModel(model);
     }
 }

@@ -13,6 +13,8 @@ public class GameSession : MonoBehaviour
 
     public event Action<PlayerInventoryPresenter> OnInventoryChanged;
     
+    public BuildingsMediator BuildingsMediator { get; private set; }
+    
     private bool _needsSave;
     
     private void Awake()
@@ -27,6 +29,7 @@ public class GameSession : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         PlayerInventory = JsonPlayerInventorySaver.Load();
+        BuildingsMediator = new BuildingsMediator();
         
         StartCoroutine(AutoSaveRoutine());
     }

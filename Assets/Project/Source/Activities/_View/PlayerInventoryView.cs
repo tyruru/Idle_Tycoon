@@ -7,6 +7,7 @@ public class PlayerInventoryView : MonoBehaviour
     private void Start()
     {
         _playerInventory = GameSession.I.PlayerInventory;
+        
     }
     
     public void AddResource(string id)

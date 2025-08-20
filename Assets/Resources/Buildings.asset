@@ -21,9 +21,19 @@ MonoBehaviour:
       <Amount>k__BackingField: 1
     - <Id>k__BackingField: _wood
       <Amount>k__BackingField: 2
+    <Settings>k__BackingField:
+      <ProducePerTime>k__BackingField:
+        <Id>k__BackingField: _coin
+        <Amount>k__BackingField: 1
+      <SecondsForProduce>k__BackingField: 1
   - <Id>k__BackingField: _fast_food
     <Prefab>k__BackingField: {fileID: 1873220051816353173, guid: 065e104e3b9a34127bf59a7be89f9e92,
       type: 3}
     <Price>k__BackingField:
     - <Id>k__BackingField: _coin
       <Amount>k__BackingField: 1
+    <Settings>k__BackingField:
+      <ProducePerTime>k__BackingField:
+        <Id>k__BackingField: _coin
+        <Amount>k__BackingField: 1
+      <SecondsForProduce>k__BackingField: 1

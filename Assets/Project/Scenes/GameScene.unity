@@ -286,7 +286,7 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
---- !u!1 &92321576
+--- !u!1 &155574113
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -294,39 +294,37 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 92321578}
-  - component: {fileID: 92321577}
+  - component: {fileID: 155574115}
+  - component: {fileID: 155574114}
   m_Layer: 0
-  m_Name: Inventory
+  m_Name: InputService
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &92321577
+--- !u!114 &155574114
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 92321576}
+  m_GameObject: {fileID: 155574113}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1fbbc303e6214471bf19881c920aa585, type: 3}
+  m_Script: {fileID: 11500000, guid: a64ebb75355b445dbd4fc169614b3620, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerInventory:
-    _resources: []
---- !u!4 &92321578
+--- !u!4 &155574115
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 92321576}
+  m_GameObject: {fileID: 155574113}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 23.426054, y: 10.976353, z: -14.477562}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -536,7 +534,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 92321577}
+      - m_Target: {fileID: 598914979}
         m_TargetAssemblyTypeName: PlayerInventoryView, Assembly-CSharp
         m_MethodName: AddResource
         m_Mode: 5
@@ -616,6 +614,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gridSize: {x: 19, y: 19}
+  _buildingsRoot: {fileID: 1524487267}
 --- !u!4 &424313160
 Transform:
   m_ObjectHideFlags: 0
@@ -979,6 +978,52 @@ MonoBehaviour:
   zoomLimits: {x: 5, y: 20}
   xLimits: {x: -20, y: 20}
   zLimits: {x: -20, y: 20}
+--- !u!1 &598914977
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 598914978}
+  - component: {fileID: 598914979}
+  m_Layer: 0
+  m_Name: Inventory
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &598914978
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 598914977}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &598914979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 598914977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fbbc303e6214471bf19881c920aa585, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerInventory:
+    _resources: []
 --- !u!1 &821257721
 GameObject:
   m_ObjectHideFlags: 0
@@ -1317,7 +1362,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 92321577}
+      - m_Target: {fileID: 598914979}
         m_TargetAssemblyTypeName: PlayerInventoryView, Assembly-CSharp
         m_MethodName: RemoveResource
         m_Mode: 5
@@ -1871,7 +1916,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 92321577}
+      - m_Target: {fileID: 598914979}
         m_TargetAssemblyTypeName: PlayerInventoryView, Assembly-CSharp
         m_MethodName: RemoveResource
         m_Mode: 5
@@ -2055,6 +2100,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1406874712}
   m_CullTransparentMesh: 1
+--- !u!1 &1524487266
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1524487267}
+  m_Layer: 0
+  m_Name: BuildingRoot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1524487267
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1524487266}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1716704650
 GameObject:
   m_ObjectHideFlags: 0
@@ -2236,7 +2312,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 92321577}
+      - m_Target: {fileID: 598914979}
         m_TargetAssemblyTypeName: PlayerInventoryView, Assembly-CSharp
         m_MethodName: AddResource
         m_Mode: 5
@@ -2429,6 +2505,8 @@ SceneRoots:
   - {fileID: 1986700535}
   - {fileID: 424313160}
   - {fileID: 1201251967}
-  - {fileID: 92321578}
   - {fileID: 434982845}
   - {fileID: 1716704651}
+  - {fileID: 1524487267}
+  - {fileID: 155574115}
+  - {fileID: 598914978}

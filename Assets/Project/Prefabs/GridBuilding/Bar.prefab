@@ -48,6 +48,7 @@ MonoBehaviour:
   _size: {x: 1, y: 1}
   _debugColor: {r: 1, g: 0.02, b: 0.97, a: 0.3}
   _renderer: {fileID: 2323310566472753123}
+  Id: _bar
 --- !u!1001 &2323310566474909571
 PrefabInstance:
   m_ObjectHideFlags: 0

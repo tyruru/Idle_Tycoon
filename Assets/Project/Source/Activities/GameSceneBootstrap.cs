@@ -3,10 +3,6 @@ using UnityEngine;
 public class GameSceneBootstrap : MonoBehaviour
 {
     [SerializeField] private BuildingGridView _buildingGridView;
-    private void Awake()
-    {
-        
-    }
 
     private void Start()
     {
