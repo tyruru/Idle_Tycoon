@@ -5,20 +5,23 @@ using UnityEngine;
 [Serializable]
 public class BuildingModel
 {
-    public BuildingModel(string id, Vector3 position, Vector2Int size, List<PriceDef> price, BuildingSettings settings)
+    public BuildingModel(string id, Vector3 position, Vector2Int size,
+        List<PriceDef> price, BuildingStats stats, int currentLevel)
     {
         Id = id;
         Position = position;
         Size = size;
         Price = price;
-        Settings = settings;
+        Stats = stats;
+        CurerntLevel = currentLevel;
     }
 
     public string Id;
     public Vector3 Position;
     public Vector2Int Size;
+    public int CurerntLevel;
     public List<PriceDef> Price;
-    public BuildingSettings Settings;
+    public BuildingStats Stats;
 }
 
 [Serializable]

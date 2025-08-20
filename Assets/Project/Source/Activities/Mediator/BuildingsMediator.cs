@@ -12,6 +12,12 @@ public class BuildingsMediator
 
         building.SetMediator(this);
     }
+    
+    public void Unregister(IBuilding building)
+    {
+        if (_buildings.Contains(building))
+            _buildings.Remove(building);
+    }
 
     public void Notify(IBuilding sender, string action)
     {
@@ -32,6 +38,16 @@ public class BuildingsMediator
     private void TryUpgrade(IBuilding building)
     {
         Debug.Log($"Mediator upgrading {building.Id}");
-        building.Execute();
+        var currentLevel = building.CurrentLevel;
+        var def = DefsFacade.I.BuildingRepository.GetById(building.Id);
+        if (currentLevel >= def.Stats.Count)
+        {
+            Debug.LogWarning($"Building {building.Id} is already at max level.");
+            return;
+        }
+
+        var nextStats = def.Stats[currentLevel];
+        
+        building.SetStats(nextStats, currentLevel+1);
     }
 }

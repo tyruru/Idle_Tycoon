@@ -37,7 +37,8 @@ public class BuildingGridPresenter
             position: buildingView.transform.position,
             size: buildingView.Size,
             price: def.Price,
-            settings: def.Settings
+            stats: def.Stats[def.CurrentLevel],
+            currentLevel: def.CurrentLevel
         );
         
         _placedBuildings.Add(model);
@@ -56,7 +57,8 @@ public class BuildingGridPresenter
                 position: building.Position,
                 size: building.Size,
                 price: building.Price,
-                settings: building.Settings
+                stats: building.Stats, 
+                currentLevel: building.CurerntLevel
             );
             
             data.Buildings.Add(bData);
@@ -78,7 +80,7 @@ public class BuildingGridPresenter
             }
             var view = DefsFacade.I.BuildingRepository.GetById(model.Id).Prefab;
 
-            var instance = _view.Create(view, model.Position, Quaternion.identity);
+            var instance = _view.Create(view, model.Position, Quaternion.Euler(0, 180, 0));
             instance.SetModel(model);
             
             _placedBuildings.Add(model);

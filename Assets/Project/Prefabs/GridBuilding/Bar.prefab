@@ -25,14 +25,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 522210512113375412}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2323310566474521859}
+  - {fileID: 6146266974731888240}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!114 &7959171761635305038
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48,7 +49,55 @@ MonoBehaviour:
   _size: {x: 1, y: 1}
   _debugColor: {r: 1, g: 0.02, b: 0.97, a: 0.3}
   _renderer: {fileID: 2323310566472753123}
+  _prefabWidget: {fileID: 6291915193953664128, guid: 6b5aeca8372054deaa5f6935962cc22d,
+    type: 3}
+  _widgetsRoot: {fileID: 6146266974731888240}
+  _buildingModel:
+    Id: 
+    Position: {x: 0, y: 0, z: 0}
+    Size: {x: 0, y: 0}
+    CurerntLevel: 0
+    Price: []
+    Stats:
+      <Level>k__BackingField: 0
+      <ProducePerTime>k__BackingField: []
+      <SecondsForProduce>k__BackingField: 0
   Id: _bar
+--- !u!1 &7974936023597349546
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6146266974731888240}
+  m_Layer: 0
+  m_Name: WidgetContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &6146266974731888240
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7974936023597349546}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2183848792819450771}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 1.51}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &2323310566474909571
 PrefabInstance:
   m_ObjectHideFlags: 0

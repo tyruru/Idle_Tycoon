@@ -13,9 +13,10 @@ public class BuildingRepository : BaseRepository<BuildingDef>
 public class BuildingDef : IStringId
 {
     [field: SerializeField] public string Id { get; private set; }
+    [field: SerializeField] public int CurrentLevel { get; private set; }
     [field: SerializeField] public BuildingView Prefab { get; private set; }
     [field: SerializeField] public List<PriceDef> Price { get; private set; }
-    [field: SerializeField] public BuildingSettings Settings { get; private set; }
+    [field: SerializeField] public List<BuildingStats> Stats { get; private set; }
 }
 
 [Serializable]
@@ -33,8 +34,9 @@ public class ProducePerTimeDef : IStringId
 }
 
 [Serializable]
-public class BuildingSettings
+public class BuildingStats
 {
-    [field: SerializeField] public ProducePerTimeDef ProducePerTime { get; private set; }
+    [field: SerializeField] public int Level { get; private set; }
+    [field: SerializeField] public List<ProducePerTimeDef> ProducePerTime { get; private set; }
     [field: SerializeField] public int SecondsForProduce { get; private set; }
 }

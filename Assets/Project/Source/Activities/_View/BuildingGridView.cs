@@ -140,9 +140,9 @@ public class BuildingGridView : MonoBehaviour
         }
     }
 
-    public BuildingView Create(BuildingView buildingView, Vector3 bDataPosition, Quaternion identity)
+    public BuildingView Create(BuildingView buildingView, Vector3 bDataPosition, Quaternion quarterion)
     {
-        var instance =  Instantiate(buildingView, bDataPosition, identity, _buildingsRoot);
+        var instance =  Instantiate(buildingView, bDataPosition, quarterion, _buildingsRoot);
         for (int x = 0; x < buildingView.Size.x; x++)
         {
             for (int y = 0; y < buildingView.Size.y; y++)
