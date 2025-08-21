@@ -1,14 +1,15 @@
 using System;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 public class BuildingGridView : MonoBehaviour
 {
     [SerializeField] private Vector2Int _gridSize = new Vector2Int(10, 10);
     [SerializeField] private Transform _buildingsRoot;
+    [SerializeField] private Camera _mainCamera;
     
     private BuildingView _flyingBuildingView;
     private BuildingView[,] _grid;
-    private Camera _mainCamera;
     private bool _available = true;
     
     public string Id { get; private set; }
@@ -16,7 +17,7 @@ public class BuildingGridView : MonoBehaviour
     private void Awake()
     {
         _grid = new BuildingView[_gridSize.x, _gridSize.y]; 
-        _mainCamera = Camera.main;
+        Assert.IsNotNull(_mainCamera, "_mainCamera is null");
     }
 
     private void Update()

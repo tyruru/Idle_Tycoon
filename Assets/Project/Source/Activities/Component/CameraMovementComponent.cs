@@ -11,11 +11,11 @@ public class CameraMovementComponent : MonoBehaviour
     [SerializeField] private Vector2 xLimits = new Vector2(-20f, 20f); 
     [SerializeField] private Vector2 zLimits = new Vector2(-20f, 20f); 
 
-    private Camera cam;
+    Camera _cam;
 
     private void Start()
     {
-        cam = Camera.main;
+        _cam = GetComponent<Camera>();
     }
 
     private void Update()
@@ -45,8 +45,8 @@ public class CameraMovementComponent : MonoBehaviour
         float scroll = Input.GetAxis("Mouse ScrollWheel");
         if (scroll != 0)
         {
-            float newSize = cam.orthographicSize - scroll * zoomSpeed;
-            cam.orthographicSize = Mathf.Clamp(newSize, zoomLimits.x, zoomLimits.y);
+            float newSize = _cam.orthographicSize - scroll * zoomSpeed;
+            _cam.orthographicSize = Mathf.Clamp(newSize, zoomLimits.x, zoomLimits.y);
         }
     }
 }

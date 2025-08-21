@@ -315,6 +315,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gridSize: {x: 19, y: 19}
   _buildingsRoot: {fileID: 1524487267}
+  _mainCamera: {fileID: 500379960}
 --- !u!4 &424313160
 Transform:
   m_ObjectHideFlags: 0
@@ -339,7 +340,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 434982845}
-  - component: {fileID: 434982844}
   - component: {fileID: 434982846}
   - component: {fileID: 434982847}
   m_Layer: 0
@@ -349,19 +349,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &434982844
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 434982843}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 50db3d55d11546ae9a13a6f20089199e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _autoSaveInterval: 30
 --- !u!4 &434982845
 Transform:
   m_ObjectHideFlags: 0
@@ -412,7 +399,6 @@ GameObject:
   m_Component:
   - component: {fileID: 500379961}
   - component: {fileID: 500379960}
-  - component: {fileID: 500379959}
   - component: {fileID: 500379962}
   - component: {fileID: 500379963}
   m_Layer: 0
@@ -422,14 +408,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &500379959
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 500379958}
-  m_Enabled: 1
 --- !u!20 &500379960
 Camera:
   m_ObjectHideFlags: 0
