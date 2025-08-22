@@ -27,10 +27,14 @@ MonoBehaviour:
       <ProducePerTime>k__BackingField:
       - <Id>k__BackingField: _coin
         <Amount>k__BackingField: 1
+      - <Id>k__BackingField: _wood
+        <Amount>k__BackingField: 1
       <SecondsForProduce>k__BackingField: 2
     - <Level>k__BackingField: 2
       <ProducePerTime>k__BackingField:
       - <Id>k__BackingField: _coin
+        <Amount>k__BackingField: 2
+      - <Id>k__BackingField: _wood
         <Amount>k__BackingField: 2
       <SecondsForProduce>k__BackingField: 2
   - <Id>k__BackingField: _fast_food
@@ -47,15 +51,48 @@ MonoBehaviour:
     <Stats>k__BackingField:
     - <Level>k__BackingField: 1
       <ProducePerTime>k__BackingField:
-      - <Id>k__BackingField: _coin
-        <Amount>k__BackingField: 5
+      - <Id>k__BackingField: _gem
+        <Amount>k__BackingField: 1
       - <Id>k__BackingField: _wood
-        <Amount>k__BackingField: 6
+        <Amount>k__BackingField: 2
       <SecondsForProduce>k__BackingField: 8
     - <Level>k__BackingField: 2
       <ProducePerTime>k__BackingField:
-      - <Id>k__BackingField: _coin
-        <Amount>k__BackingField: 10
+      - <Id>k__BackingField: _gem
+        <Amount>k__BackingField: 3
       - <Id>k__BackingField: _wood
-        <Amount>k__BackingField: 12
+        <Amount>k__BackingField: 3
+      <SecondsForProduce>k__BackingField: 4
+  - <Id>k__BackingField: _coffee_shop
+    <Icon>k__BackingField: {fileID: 21300000, guid: 561ac02f1757d40d59ecd1cd199bcd2b,
+      type: 3}
+    <CurrentLevel>k__BackingField: 1
+    <Prefab>k__BackingField: {fileID: 7959171761635305038, guid: fbdd74f5814fa4716b935dca37bd4f98,
+      type: 3}
+    <Price>k__BackingField:
+    - <Id>k__BackingField: _gem
+      <Amount>k__BackingField: 2
+    - <Id>k__BackingField: _wood
+      <Amount>k__BackingField: 5
+    <Stats>k__BackingField:
+    - <Level>k__BackingField: 1
+      <ProducePerTime>k__BackingField:
+      - <Id>k__BackingField: _gem
+        <Amount>k__BackingField: 1
+      - <Id>k__BackingField: _wood
+        <Amount>k__BackingField: 3
+      <SecondsForProduce>k__BackingField: 4
+    - <Level>k__BackingField: 2
+      <ProducePerTime>k__BackingField:
+      - <Id>k__BackingField: _gem
+        <Amount>k__BackingField: 3
+      - <Id>k__BackingField: _wood
+        <Amount>k__BackingField: 5
+      <SecondsForProduce>k__BackingField: 4
+    - <Level>k__BackingField: 3
+      <ProducePerTime>k__BackingField:
+      - <Id>k__BackingField: _gem
+        <Amount>k__BackingField: 8
+      - <Id>k__BackingField: _wood
+        <Amount>k__BackingField: 8
       <SecondsForProduce>k__BackingField: 4

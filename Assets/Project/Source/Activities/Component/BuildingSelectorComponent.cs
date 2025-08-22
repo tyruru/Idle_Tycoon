@@ -26,8 +26,8 @@ public class BuildingSelectorComponent : MonoBehaviour
             }
             else
             {
-                GameSession.I.UpgradeWindow.CloseUpgradeButton();
                 UnselectBuilding();
+                // GameSession.I.UpgradeWindow.CloseUpgradeButton();
             }
         }
     }
