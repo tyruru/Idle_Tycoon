@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class PlaceBuildingButtonCommand : ButtonCommand
@@ -13,7 +12,7 @@ public class PlaceBuildingButtonCommand : ButtonCommand
 
     public override void Execute()
     {
-        if (!BuyBuildingManager.IsEnoughResources(DefsFacade.I.BuildingRepository.GetById(_buildingId).Price))
+        if (!BuildingManager.IsEnoughResources(DefsFacade.I.BuildingRepository.GetById(_buildingId).Price))
         {
             Debug.LogError($"Buy building {_buildingId} is not enough resources.");
             return;
@@ -23,7 +22,7 @@ public class PlaceBuildingButtonCommand : ButtonCommand
 
     private void CheckResources(PlayerInventoryPresenter obj)
     {
-        var isEnough = BuyBuildingManager.IsEnoughResources(DefsFacade.I.BuildingRepository.GetById(_buildingId).Price);
+        var isEnough = BuildingManager.IsEnoughResources(DefsFacade.I.BuildingRepository.GetById(_buildingId).Price);
         
         _button.interactable = isEnough;
     }

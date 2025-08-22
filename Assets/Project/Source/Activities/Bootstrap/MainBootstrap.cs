@@ -37,17 +37,16 @@ public class MainBootstrap : MonoBehaviour
 
         menuOp.allowSceneActivation = true;
         menuOp.completed += ActiveScene;
-        // while (!menuOp.isDone)
-        // {
-        //     yield return null;
-        // }
-        
-       
     }
 
     private void ActiveScene(AsyncOperation obj)
     {
-        SceneManager.SetActiveScene(SceneManager.GetSceneByName(SceneNames.MainMenu));
+        Scene scene = SceneManager.GetSceneByName(SceneNames.MainMenu);
+
+        if (scene.IsValid() && scene.isLoaded)
+            SceneManager.SetActiveScene(scene);
+        else
+            Debug.LogWarning("MainMenu scene is not loaded yet!");
         
         SceneManager.UnloadSceneAsync(gameObject.scene.name);
         

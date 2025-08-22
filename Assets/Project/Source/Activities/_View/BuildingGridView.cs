@@ -51,7 +51,7 @@ public class BuildingGridView : MonoBehaviour
             
             if (_available && InputService.I.Actions.Building.Approve.WasPressedThisFrame())
             {
-                if (!BuyBuildingManager.BuyBuilding(_flyingBuildingView)) 
+                if (!BuildingManager.BuyBuilding(_flyingBuildingView)) 
                     return;
                 
                 PlaceBuilding(x, y);

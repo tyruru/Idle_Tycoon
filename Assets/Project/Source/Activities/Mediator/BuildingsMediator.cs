@@ -5,6 +5,12 @@ public class BuildingsMediator
 {
     private readonly List<IBuilding> _buildings = new List<IBuilding>();
     private PlaySoundsComponent _playSoundsComponent;
+    private UpgradeWindow _upgradeWindow;
+    
+    public void Initialize(UpgradeWindow upgradeWindow)
+    {
+        _upgradeWindow = upgradeWindow;
+    }
     
     public void Register(IBuilding building)
     {
@@ -19,23 +25,13 @@ public class BuildingsMediator
         if (_buildings.Contains(building))
             _buildings.Remove(building);
     }
-
-    public void Notify(IBuilding sender, string action)
+    
+    public void ShowUpgradeWindow(IBuilding building)
     {
-        Debug.Log($"Mediator: received '{action}' from {sender}");
-
-        switch (action)
-        {
-            case "Produce":
-                CollectResources(sender);
-                break;
-            case "Upgrade":
-                TryUpgrade(sender);
-                break;
-        }
+        _upgradeWindow.Show(building, this);
     }
 
-    private void TryUpgrade(IBuilding building)
+    public void TryUpgrade(IBuilding building)
     {
         Debug.Log($"Mediator upgrading {building.Id}");
         var currentLevel = building.CurrentLevel;
@@ -51,8 +47,8 @@ public class BuildingsMediator
         _playSoundsComponent?.PlayOneShot("Upgrade");
         building.SetStats(nextStats, currentLevel+1);
     }
-    
-    private void CollectResources(IBuilding building)
+
+    public void CollectResources(IBuilding building)
     {
         Debug.Log($"Mediator collecting resources from {building}");
         

@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _collection:
   - <Id>k__BackingField: _bar
+    <Icon>k__BackingField: {fileID: 21300000, guid: ca4c8d20224a24c12b7d0af145c0f301,
+      type: 3}
     <CurrentLevel>k__BackingField: 1
     <Prefab>k__BackingField: {fileID: 7959171761635305038, guid: 034b7cc0508d044f1bfaf923787c45f7,
       type: 3}
@@ -32,11 +34,15 @@ MonoBehaviour:
         <Amount>k__BackingField: 2
       <SecondsForProduce>k__BackingField: 2
   - <Id>k__BackingField: _fast_food
+    <Icon>k__BackingField: {fileID: 21300000, guid: cae77a19bb8ca40198202b117162c95a,
+      type: 3}
     <CurrentLevel>k__BackingField: 1
     <Prefab>k__BackingField: {fileID: 1873220051816353173, guid: 065e104e3b9a34127bf59a7be89f9e92,
       type: 3}
     <Price>k__BackingField:
     - <Id>k__BackingField: _coin
+      <Amount>k__BackingField: 5
+    - <Id>k__BackingField: _wood
       <Amount>k__BackingField: 5
     <Stats>k__BackingField:
     - <Level>k__BackingField: 1

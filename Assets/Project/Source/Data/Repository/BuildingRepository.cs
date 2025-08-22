@@ -13,6 +13,7 @@ public class BuildingRepository : BaseRepository<BuildingDef>
 public class BuildingDef : IStringId
 {
     [field: SerializeField] public string Id { get; private set; }
+    [field: SerializeField] public Sprite Icon { get; private set; }
     [field: SerializeField] public int CurrentLevel { get; private set; }
     [field: SerializeField] public BuildingView Prefab { get; private set; }
     [field: SerializeField] public List<PriceDef> Price { get; private set; }

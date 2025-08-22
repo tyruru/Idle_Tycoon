@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BuyBuildingManager
+public class BuildingManager
 {
     public static bool BuyBuilding(BuildingView buildingView)
     {

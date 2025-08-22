@@ -34,14 +34,14 @@ public class BuildingPresenter : IBuilding
     {
         _view = view;
         _view.OnTimerEnd += TimerEnd;
-        _view.OnTryToCollect += Produce;
+        _view.OnSelected += OnSelected;
         GameSession.I.BuildingsMediator.Register(this);
     }
     
     public void Dispose()
     {
         _view.OnTimerEnd -= TimerEnd;
-        _view.OnTryToCollect -= Produce;
+        _view.OnSelected -= OnSelected;
         GameSession.I.BuildingsMediator.Unregister(this);
     }
     
@@ -50,15 +50,17 @@ public class BuildingPresenter : IBuilding
         _mediator = mediator;
     }
 
-    public void Produce()
+    public void OnSelected()
     {
         if(_canCollect)
-            _mediator.Notify(this, "Produce");
+            _mediator.CollectResources(this);
+
+        _view.ShowUpgradeMenu();
     }
 
     public void Upgrade()
     {
-        _mediator.Notify(this, "Upgrade");
+        _mediator.ShowUpgradeWindow(this);
     }
 
     public void SetModel(BuildingModel model)

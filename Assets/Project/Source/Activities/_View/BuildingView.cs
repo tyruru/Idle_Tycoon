@@ -28,7 +28,7 @@ public class BuildingView : MonoBehaviour
     public string Id;
     
     public event Action OnTimerEnd;
-    public event Action OnTryToCollect;
+    public event Action OnSelected;
     
     private void Awake()
     {
@@ -133,7 +133,26 @@ public class BuildingView : MonoBehaviour
             _activeWidgets[i].transform.localPosition = new Vector3(i * offset, 0, 0);
         }
     }
+    
+    public void BuildingSelected()
+    {
+        Debug.Log($"{name} selected");
+        _renderer.material.color = _highlightColor;
+        OnSelected?.Invoke();
+        _selectBuildingTween.PlaySelectTween();
+    }
+    
+    public void BuildingUnSelected()
+    {
+        Debug.Log($"{name} Un Selected");
+        _renderer.material.color = _defaultColor;
+    }
 
+    public void ShowUpgradeMenu()
+    {
+        GameSession.I.UpgradeWindow.Show(_buildingPresenter, GameSession.I.BuildingsMediator);
+    }
+    
     private void OnDrawGizmos()
     {
         for (int x = 0; x < _size.x; x++)
@@ -144,19 +163,5 @@ public class BuildingView : MonoBehaviour
                 Gizmos.DrawCube(transform.position + new Vector3(x, 0, y), new Vector3(1, .1f, 1));
             }
         }
-    }
-    
-    public void BuildingSelected()
-    {
-        Debug.Log($"{name} selected");
-        _renderer.material.color = _highlightColor;
-        OnTryToCollect?.Invoke();
-        _selectBuildingTween.PlaySelectTween();
-    }
-    
-    public void BuildingUnSelected()
-    {
-        Debug.Log($"{name} Un Selected");
-        _renderer.material.color = _defaultColor;
     }
 }

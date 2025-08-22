@@ -7,7 +7,18 @@ public class GameSession : MonoBehaviour
     [SerializeField] private float _autoSaveInterval = 30f;
     [SerializeField] private AudioPlayComponent _musicSource;
     [SerializeField] private AudioPlayComponent _sfxSource;
+    [SerializeField] private UpgradeWindow _upgradeWindow;
 
+    public UpgradeWindow UpgradeWindow
+    {
+        get
+        {
+            if (_upgradeWindow == null)
+                _upgradeWindow = FindObjectOfType<UpgradeWindow>();
+            return _upgradeWindow;
+        }
+        private set => _upgradeWindow = value; 
+    }
     public AudioPlayComponent MusicSource => _musicSource;
     public AudioPlayComponent SfxSource => _sfxSource;
     public static GameSession I { get; private set; }
