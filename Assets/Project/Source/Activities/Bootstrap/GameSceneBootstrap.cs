@@ -3,6 +3,7 @@ using UnityEngine;
 public class GameSceneBootstrap : MonoBehaviour
 {
     [SerializeField] private BuildingGridView _buildingGridView;
+    [SerializeField] private PlaySoundsComponent _playSoundsComponent;
 
     private void Start()
     {
@@ -10,5 +11,6 @@ public class GameSceneBootstrap : MonoBehaviour
         presenter.Initialize();
         
         GameSession.I.BuildingGridPresenter = presenter;
+        GameSession.I.BuildingsMediator.SetSounds(_playSoundsComponent);
     }
 }

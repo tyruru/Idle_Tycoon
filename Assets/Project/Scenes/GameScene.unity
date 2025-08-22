@@ -342,6 +342,7 @@ GameObject:
   - component: {fileID: 434982845}
   - component: {fileID: 434982846}
   - component: {fileID: 434982847}
+  - component: {fileID: 434982848}
   m_Layer: 0
   m_Name: Bootstrap
   m_TagString: Untagged
@@ -377,6 +378,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _buildingGridView: {fileID: 424313159}
+  _playSoundsComponent: {fileID: 434982848}
 --- !u!114 &434982847
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -389,6 +391,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27911b69adfa4a64a969a04415139349, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &434982848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 434982843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a222c521d40e4f09bc6b2ba2ba0acada, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sounds:
+  - _id: Collect
+    _clip: {fileID: 8300000, guid: e54507eb053054952b9b4cee7e7e2b24, type: 3}
+  - _id: Upgrade
+    _clip: {fileID: 8300000, guid: 8988e69d9b6454a5b8f1b07ef8dd53db, type: 3}
 --- !u!1 &500379958
 GameObject:
   m_ObjectHideFlags: 0

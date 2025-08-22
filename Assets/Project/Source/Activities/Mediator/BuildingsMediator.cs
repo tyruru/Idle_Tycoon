@@ -4,7 +4,8 @@ using UnityEngine;
 public class BuildingsMediator
 {
     private readonly List<IBuilding> _buildings = new List<IBuilding>();
-
+    private PlaySoundsComponent _playSoundsComponent;
+    
     public void Register(IBuilding building)
     {
         if (!_buildings.Contains(building))
@@ -47,6 +48,7 @@ public class BuildingsMediator
 
         var nextStats = def.Stats[currentLevel];
         
+        _playSoundsComponent?.PlayOneShot("Upgrade");
         building.SetStats(nextStats, currentLevel+1);
     }
     
@@ -62,6 +64,12 @@ public class BuildingsMediator
             inventory.AddResource(resource.Id, resource.Amount);
         }
         
+        _playSoundsComponent?.PlayOneShot("Collect");
         building.OnResourcesCollected();
+    }
+
+    public void SetSounds(PlaySoundsComponent playSoundsComponent)
+    {
+        _playSoundsComponent = playSoundsComponent;
     }
 }

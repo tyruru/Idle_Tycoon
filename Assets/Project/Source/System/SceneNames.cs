@@ -6,5 +6,7 @@ public static class SceneNames
    public const string GameScene = "GameScene";
    public const string HUD = "HUD";
    public const string Settings = "SettingsScene";
+   public const string Audio = "AudioScene";
+   
       
 }

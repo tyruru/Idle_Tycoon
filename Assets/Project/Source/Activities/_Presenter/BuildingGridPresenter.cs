@@ -7,7 +7,8 @@ public class BuildingGridPresenter
     private readonly BuildingRepository _buildingRepository;
     
     public readonly List<BuildingModel> PlacedBuildings = new List<BuildingModel>();
-    
+
+    private readonly JsonBuildingGridSaver _jsonBuildingGridSaver = new();
     public BuildingGridPresenter(BuildingGridView gridView)
     {
         _view = gridView;
@@ -15,6 +16,8 @@ public class BuildingGridPresenter
         
         var repository = DefsFacade.I.BuildingRepository;
         _buildingRepository = repository;
+        
+        
     }
 
     public void Initialize()
@@ -54,12 +57,12 @@ public class BuildingGridPresenter
             Buildings = PlacedBuildings
         };
 
-        JsonBuildingGridSaver.Save(data);
+        _jsonBuildingGridSaver.Save(data);
     }
 
     private void LoadBuildings()
     {
-        var data = JsonBuildingGridSaver.Load();
+        var data = _jsonBuildingGridSaver.Load();
 
         foreach (var model in data.Buildings)
         {

@@ -821,6 +821,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _autoSaveInterval: 30
+  _musicSource: {fileID: 0}
+  _sfxSource: {fileID: 0}
 --- !u!4 &1853503537
 Transform:
   m_ObjectHideFlags: 0

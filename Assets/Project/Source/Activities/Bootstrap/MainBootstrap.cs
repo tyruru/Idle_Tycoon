@@ -7,7 +7,8 @@ public class MainBootstrap : MonoBehaviour
 {
     [SerializeField] private Slider _progressBar;
 
-    private void Start()
+    private AsyncOperation menuOp;
+    private void Awake()
     {
         Load();
     }
@@ -20,9 +21,10 @@ public class MainBootstrap : MonoBehaviour
 
     private IEnumerator LoadScenesAsync()
     {
-        AsyncOperation menuOp = SceneManager.LoadSceneAsync(SceneNames.MainMenu, LoadSceneMode.Additive);
+        AsyncOperation audioOp = SceneManager.LoadSceneAsync(SceneNames.Audio, LoadSceneMode.Additive);
+        menuOp = SceneManager.LoadSceneAsync(SceneNames.MainMenu, LoadSceneMode.Additive);
         menuOp.allowSceneActivation = false;
-
+        
         float duration = Random.Range(2f, 3f);
         float elapsed = 0f;
 
@@ -34,14 +36,21 @@ public class MainBootstrap : MonoBehaviour
         }
 
         menuOp.allowSceneActivation = true;
-
-        while (!menuOp.isDone)
-        {
-            yield return null;
-        }
+        menuOp.completed += ActiveScene;
+        // while (!menuOp.isDone)
+        // {
+        //     yield return null;
+        // }
         
+       
+    }
+
+    private void ActiveScene(AsyncOperation obj)
+    {
         SceneManager.SetActiveScene(SceneManager.GetSceneByName(SceneNames.MainMenu));
         
         SceneManager.UnloadSceneAsync(gameObject.scene.name);
+        
+        menuOp.completed -= ActiveScene;
     }
 }

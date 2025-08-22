@@ -3,6 +3,7 @@ using UnityEngine;
 public class BuildingSelectorComponent : MonoBehaviour
 {
     private BuildingView _selectedBuilding;
+    
 
     void Update()
     {
